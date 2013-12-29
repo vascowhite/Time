@@ -1,0 +1,12 @@
+{
+    "name": "vascowhite/time",
+    "description": "A class to deal with operations on times independant of date.",
+    "minimum-stability": "stable",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Paul White",
+            "email": "vascowhite@gmail.com"
+        }
+    ]
+}
