@@ -1,5 +1,5 @@
 {
-    "name": "Vascowhite\\Time",
+    "name": "Vascowhite/Time",
     "description": "A class to deal with operations on times independent of date.",
     "minimum-stability": "stable",
     "license": "proprietary",
@@ -11,7 +11,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "vascowhite\\Time":"src/"
+            "Vascowhite\\Time":"src/"
         }
     },
     "require-dev": {
