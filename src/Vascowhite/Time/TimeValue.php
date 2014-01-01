@@ -6,7 +6,7 @@
  * Time: 13:15
  */
 
-namespace vascowhite\Time;
+namespace Vascowhite\Time;
 
 
 class TimeValue
