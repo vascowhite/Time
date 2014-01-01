@@ -1,5 +1,5 @@
 {
-    "name": "vascowhite/time",
+    "name": "Vascowhite\\Time",
     "description": "A class to deal with operations on times independent of date.",
     "minimum-stability": "stable",
     "license": "proprietary",
@@ -8,5 +8,13 @@
             "name": "Paul White",
             "email": "vascowhite@gmail.com"
         }
-    ]
+    ],
+    "autoload": {
+        "psr-0": {
+            "vascowhite\\Time":"src/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.28"
+    }
 }
