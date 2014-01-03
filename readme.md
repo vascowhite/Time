@@ -81,6 +81,8 @@ $time = new TimeValue('00:10:10');
 echo $time->getSeconds; // Output 610
 ```
 
+---
+
 ###TimePeriod
 
 [1]: http://www.hackcraft.net/web/datetime/#time
