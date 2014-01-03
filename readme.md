@@ -66,6 +66,20 @@ __Signature__
 Int getSeconds();
 ```
 
+__Arguments__
+
+None.
+
+__Return__
+
+Returns an integer representing the number of seconds that the TimeValue spans.
+
+__Example__
+
+```php
+$time = new TimeValue('00:10:10');
+echo $time->getSeconds; // Output 610
+```
 
 ###TimePeriod
 
