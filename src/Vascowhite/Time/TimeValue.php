@@ -109,6 +109,8 @@ class TimeValue
      *  '=' returns true if $time is equal to $this
      *  '>' returns true if $time is Greater Than $this
      *  '<' returns true if $time is Less Than $this
+     *  '<=' returns true if $time is Less Than or Equal to $this
+     *  '>=' returns true if $time is Greater Than or Equal to $this
      *
      * @param TimeValue $time The TimeValue to compare this with
      * @param string    $comparison
@@ -130,6 +132,16 @@ class TimeValue
                 break;
             case '<':
                 if($time->getSeconds() < $this->seconds){
+                    $result = true;
+                }
+                break;
+            case '<=':
+                if($time->getSeconds() <= $this->seconds){
+                    $result = true;
+                }
+                break;
+            case '>=':
+                if($time->getSeconds() >= $this->seconds){
                     $result = true;
                 }
                 break;

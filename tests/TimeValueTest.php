@@ -125,9 +125,32 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $this->assertFalse($testTimeValue->compare(new TimeValue('12:30'), '<'), 'Cannot compare equals.');
     }
 
+    public function testCompareLessThanOrEqualTo()
+    {
+        $testTimeValue = new TimeValue('12');
+        $this->assertTrue($testTimeValue->compare(new TimeValue('11:30'), '<='), 'Cannot compare <=.');
+        $this->assertTrue($testTimeValue->compare(new TimeValue('12'), '<='), 'Cannot compare <=.');
+        $this->assertFalse($testTimeValue->compare(new TimeValue('12:30'), '<='), 'Cannot compare <=.');
+    }
+
+    public function testCompareGreaterThanOrEqualTo(){
+        $testTimeValue = new TimeValue('12');
+        $this->assertTrue($testTimeValue->compare(new TimeValue('12:30'), '>='), 'Cannot compare >=.');
+        $this->assertTrue($testTimeValue->compare(new TimeValue('12'), '>='), 'Cannot compare >=.');
+        $this->assertFalse($testTimeValue->compare(new TimeValue('11:30'), '>='), 'Cannot compare >=.');
+    }
+
     public function testCompareReturnsFalseOnWrongSymbol()
     {
         $testTimeValue = new TimeValue('12');
         $this->assertFalse($testTimeValue->compare(new TimeValue('11:30'), '*'), 'Cannot compare equals.');
+    }
+
+    public function testCanEcho(){
+        $testTimeValue = new TimeValue('00:00:00');
+        ob_start();
+        echo $testTimeValue;
+        $result = ob_get_clean();
+        $this->assertEquals('00:00:00', $result, "Cannot echo!");
     }
 } 
