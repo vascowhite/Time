@@ -14,6 +14,16 @@ For example:-
 
 This class can add, subtract and compare times.
 
+##Installation
+
+Install using composer, add the following to composer.json:-
+
+```json
+"require": {
+    "vascowhite/time": "dev-master"
+}
+```
+
 ##Classes
 ###TimeValue
 This class represents a time datatype. It knows nothing about dates, if you need times associated with dates, then PHP's
