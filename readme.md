@@ -29,7 +29,7 @@ There are various methods available for manipulating and comparing TimeValue obj
 __Signature:-__
 
 ```php
-__construct(Mixed $time = null)
+TimeValue __construct(Mixed $time = null)
 ```
 
 __Arguments__
@@ -53,6 +53,19 @@ Although the format is specified as 'hh:mm:ss' none of the fields are limited to
 new TimeValue('120:150:200'); // 120 hours 150 minutes 200 seconds Will output '122:33:20'
 new TimeValue('00:00:36000'); // 36000 seconds. Will output '10:00:00'
 ```
+
+__Return__
+
+Returns a TimeValue object.
+
+####TimeValue::getSeconds()
+
+__Signature__
+
+```php
+Int getSeconds();
+```
+
 
 ###TimePeriod
 
