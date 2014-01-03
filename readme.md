@@ -3,13 +3,12 @@
 This is a set of classes for dealing with times.
 
 The [time datatype][1] represents an instant of time that recurs each day. It is expressed in the format hh:mm:ss
-(a left truncation of the representation of datetime).
-
-That is to say that a given time today is indistinguishable from a time with the same value from yesterday or tomorrow.
+(a left truncation of the representation of datetime).  That is to say that a given time today is indistinguishable from
+a time with the same value from yesterday or tomorrow.
 
 For example:-
 
-```PHP
+```
 08:00 yesterday === 08:00 today === 08:00 tomorrow
 ```
 
@@ -20,14 +19,39 @@ This class can add, subtract and compare times.
 This class represents a time datatype. It knows nothing about dates, if you need times associated with dates, then PHP's
 [DateTime][2] Classes are what you are looking for.
 
+It is important to appreciate that a TimeValue can represent a point in time measured from midnight, or an elapsed time,
+there is no difference between the two.
+
 There are various methods available for manipulating and comparing TimeValue objects.
 
 ####TimeValue::__construct()
 
 __Signature:-__
 
-```PHP
+```php
 __construct(Mixed $time = null)
+```
+
+__Arguments__
+
+`$time` is a string or null.
+If null is passed, then a TimeValue object is constructed with the current system time.
+
+If `$time` is a string then it is generally of the format 'hh:mm:ss', although variations on this are allowed.
+The following are examples of valid formats:-
+
+```php
+new TimeValue('12:15:20'); // 12 hours 15 minutes 20 seconds
+new TimeValue('12'); // 12 hours 0 minutes 0 seconds
+new TimeValue('12:15'); // 12 hours 15 minutes
+new TimeValue('00:00:20'); // 20 seconds.
+```
+
+Although the format is specified as 'hh:mm:ss' none of the fields are limited to 2 digits. The following are also valid:-
+
+```php
+new TimeValue('120:150:200'); // 120 hours 150 minutes 200 seconds
+new TimeValue('00:00:36000'); // 36000 seconds. Will output '10:00:00'
 ```
 
 ###TimePeriod
