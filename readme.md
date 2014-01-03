@@ -50,7 +50,7 @@ new TimeValue('00:00:20'); // 20 seconds.
 Although the format is specified as 'hh:mm:ss' none of the fields are limited to 2 digits. The following are also valid:-
 
 ```php
-new TimeValue('120:150:200'); // 120 hours 150 minutes 200 seconds
+new TimeValue('120:150:200'); // 120 hours 150 minutes 200 seconds Will output '122:33:20'
 new TimeValue('00:00:36000'); // 36000 seconds. Will output '10:00:00'
 ```
 
