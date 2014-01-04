@@ -34,6 +34,8 @@ there is no difference between the two.
 
 There are various methods available for manipulating and comparing TimeValue objects.
 
+TimeValue implements the __toString() magic method, so it can be echoed etc..
+
 ####TimeValue::__construct()
 
 __Signature:-__
@@ -90,6 +92,67 @@ __Example__
 $time = new TimeValue('00:10:10');
 echo $time->getSeconds; // Output 610
 ```
+
+###TimeValue::getTime()
+
+__Signature__
+
+```php
+String getTime()
+```
+
+__Arguments__
+
+None.
+
+__Return__
+
+Returns a string representing the time in the format 'hh:mm:ss'.
+The 'hh' portion will expand to the required number of digits to represent the hour.
+
+__Example__
+
+```php
+$time = new TimeValue('00:00:36000');
+echo $time->getTime(); // Output "10:00:00"
+```
+
+###TimeValue::add()
+
+__Signature__
+
+```php
+TimeValue add(TimeValue)
+```
+
+__Arguments__
+
+The TimeValue to be added to the receiver.
+
+__Return__
+
+Returns a TimeValue.
+
+###TimeValue::sub()
+
+__Signature__
+
+```php
+TimeValue sub(TimeValue)
+```
+
+__Arguments__
+
+The TimeValue to be subtracted from the receiver.
+
+__Return__
+
+Returns a TimeValue.
+
+###TimeValue::compare()
+
+
+
 
 ---
 
