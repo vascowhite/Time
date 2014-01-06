@@ -182,11 +182,11 @@ The comparison to be carried out. The following are accepted:-
  -  '<=' returns true if TimeValue is Less Than or Equal to the receiver.
  -  '>=' returns true if TimeValue is Greater Than or Equal to the receiver.
 
- __Return__
+__Return__
 
  Returns true as above, false otherwise.
 
- __Example__
+__Example__
 
 ```php
 $time = new TimeValue('01:00:00');
