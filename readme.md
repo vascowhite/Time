@@ -173,7 +173,7 @@ Bool compare(TimeValue, String)
 
 __Arguments__
 
-The TimeValue the receiver is to be compared with.  
+The TimeValue the receiver is to be compared with.
 The comparison to be carried out. The following are accepted:-
 
  -  '=' returns true if TimeValue is equal to the receiver.
@@ -181,6 +181,7 @@ The comparison to be carried out. The following are accepted:-
  -  '<' returns true if TimeValue is Less Than the receiver.
  -  '<=' returns true if TimeValue is Less Than or Equal to the receiver.
  -  '>=' returns true if TimeValue is Greater Than or Equal to the receiver.
+&nbspc;
 
  __Return__
 
