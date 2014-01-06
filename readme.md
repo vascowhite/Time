@@ -133,6 +133,13 @@ __Return__
 
 Returns a TimeValue.
 
+__Example__
+
+```php
+$time = new TimeValue('01:00:00');
+echo $time->add(new TimeValue('00:30'); // Output "1:30:00"
+```
+
 ###TimeValue::sub()
 
 __Signature__
@@ -149,6 +156,12 @@ __Return__
 
 Returns a TimeValue.
 
+__Example__
+
+```php
+$time = new TimeValue('01:00:00');
+echo $time->sub(new TimeValue('00:30'); // Output "00:30:00"
+```
 ###TimeValue::compare()
 
 
