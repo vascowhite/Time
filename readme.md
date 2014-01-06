@@ -188,8 +188,14 @@ The comparison to be carried out. The following are accepted:-
 
  __Example__
 
-
-
+```php
+$time = new TimeValue('01:00:00');
+$time->compare(new TimeValue('01:00:00'), '='); //Returns true
+$time->compare(new TimeValue('01:10:00'), '>'); //Returns true
+$time->compare(new TimeValue('00:50:00'), '<'); //Returns true
+$time->compare(new TimeValue('00:10:00'), '>='); //Returns false
+$time->compare(new TimeValue('01:10:00'), '<='); //Returns false
+```
 ---
 
 ###TimePeriod
