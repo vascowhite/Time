@@ -137,7 +137,7 @@ __Example__
 
 ```php
 $time = new TimeValue('01:00:00');
-echo $time->add(new TimeValue('00:30'); // Output "1:30:00"
+echo $time->add(new TimeValue('00:30'); // Output "01:30:00"
 ```
 
 ###TimeValue::sub()
@@ -164,6 +164,29 @@ echo $time->sub(new TimeValue('00:30'); // Output "00:30:00"
 ```
 ###TimeValue::compare()
 
+
+__Signature__
+
+```php
+Bool compare(TimeValue, String)
+```
+
+__Arguments__
+
+The TimeValue the receiver is to be compared with.
+The comparison to be carried out. The following are accepted:-
+
+ -  '=' returns true if TimeValue is equal to the receiver.
+ -  '>' returns true if TimeValue is Greater Than the receiver.
+ -  '<' returns true if TimeValue is Less Than the receiver.
+ -  '<=' returns true if TimeValue is Less Than or Equal to the receiver.
+ -  '>=' returns true if TimeValue is Greater Than or Equal to the receiver.
+
+ __Return__
+
+ Returns true as above, false otherwise.
+
+ __Example__
 
 
 
