@@ -9,12 +9,14 @@
             "email": "vascowhite@gmail.com"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "autoload": {
         "psr-0": {
             "Vascowhite\\Time":"src/"
         }
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.28"
+        "phpunit/phpunit": "*"
     }
 }
