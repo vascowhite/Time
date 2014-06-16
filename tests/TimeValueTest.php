@@ -153,4 +153,22 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $result = ob_get_clean();
         $this->assertEquals('00:00:00', $result, "Cannot echo!");
     }
+
+    public function testCanTellGreaterThan()
+    {
+        $testTimeValue = new TimeValue('12:00:00');
+        $this->assertTrue($testTimeValue->isGreaterThan(new TimeValue('11:59:59')));
+    }
+
+    public function testCanTellLessThan()
+    {
+        $testTimeValue = new TimeValue('12:00:00');
+        $this->assertTrue($testTimeValue->isLessThan(new TimeValue('12:00:01')));
+    }
+
+    public function testCanTellEqualTo()
+    {
+        $testTimeValue = new TimeValue('12:00:00');
+        $this->assertTrue($testTimeValue->isEqualTo(new TimeValue('12:00:00')));
+    }
 } 

@@ -158,4 +158,34 @@ class TimeValue
     {
         return $this->getTime();
     }
+
+    /**
+     * @param TimeValue $time
+     *
+     * @return bool
+     */
+    public function isGreaterThan(TimeValue $time)
+    {
+        return $this->compare($time, '<');
+    }
+
+    /**
+     * @param TimeValue $time
+     *
+     * @return bool
+     */
+    public function isLessThan(TimeValue $time)
+    {
+        return $this->compare($time, '>');
+    }
+
+    /**
+     * @param TimeValue $time
+     *
+     * @return bool
+     */
+    public function isEqualTo(TimeValue $time)
+    {
+        return $this->compare($time);
+    }
 } 

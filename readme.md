@@ -198,6 +198,76 @@ $time->compare(new TimeValue('01:10:00'), '<='); //Returns false
 ```
 ---
 
+
+###TimeValue::isGreaterThan()
+
+__Signature__
+
+```php
+Bool isGreaterThan(TimeValue)
+```
+
+__Arguments__
+
+The TimeValue to compare the receiver against.
+
+__Return__
+
+Returns true if the receiver is greater than the supplied TimeValue
+
+__Example__
+
+```php
+$time = new TimeValue('12:00:00');
+$time->isGreaterThan(new TimeValue('11:00:00')); // Returns true
+```
+
+###TimeValue::isLessThan()
+
+__Signature__
+
+```php
+Bool isLessThan(TimeValue)
+```
+
+__Arguments__
+
+The TimeValue to compare the receiver against.
+
+__Return__
+
+Returns true if the receiver is less than the supplied TimeValue
+
+__Example__
+
+```php
+$time = new TimeValue('11:00:00');
+$time->isLessThan(new TimeValue('12:00:00')); // Returns true
+```
+
+###TimeValue::isEqualTo()
+
+__Signature__
+
+```php
+Bool isEqualTo(TimeValue)
+```
+
+__Arguments__
+
+The TimeValue to compare the receiver against.
+
+__Return__
+
+Returns true if the receiver is equal to the supplied TimeValue
+
+__Example__
+
+```php
+$time = new TimeValue('12:00:00');
+$time->isEqualTo(new TimeValue('12:00:00')); // Returns true
+```
+
 ###TimePeriod
 
 [1]: http://www.hackcraft.net/web/datetime/#time
