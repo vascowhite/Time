@@ -1,4 +1,7 @@
 #Time
+
+[![Build Status](https://travis-ci.org/vascowhite/Time.svg?branch=master)](https://travis-ci.org/vascowhite/Time)
+
 ##Introduction
 This is a set of classes for dealing with times.
 
