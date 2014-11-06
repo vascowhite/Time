@@ -1,16 +1,14 @@
 #Time
 ##Introduction
-This is a set of classes for dealing with times.
+This is a class for dealing with times.
 
-The [time datatype][1] represents an instant of time that recurs each day. It is expressed in the format hh:mm:ss
-(a left truncation of the representation of datetime).  That is to say that a given time today is indistinguishable from
-a time with the same value from yesterday or tomorrow.
+The [time datatype][1] represents a period of time. It is expressed in the format hh:mm:ss
+(a left truncation of the representation of datetime). It is the elapsed time that would be measured on a stop watch that
+is unaware of date, time zones or DST.
 
-For example:-
-
-```
-08:00 yesterday === 08:00 today === 08:00 tomorrow
-```
+PHP's native DateTimePeriod is ecxellent for represent a time period of any length, however it does not lend itself to manipulating
+time periods. Hence, this class was born. Its scope has been limited to hours, minutes and seconds for now as this allows for accurate
+manipulation without worrying about DST etc, the DateTime classes already have that well covered.
 
 This class can add, subtract and compare times.
 
@@ -24,13 +22,9 @@ Install using composer, add the following to composer.json:-
 }
 ```
 
-##Classes
 ###TimeValue
 This class represents a time datatype. It knows nothing about dates, if you need times associated with dates, then PHP's
 [DateTime][2] Classes are what you are looking for.
-
-It is important to appreciate that a TimeValue can represent a point in time measured from midnight, or an elapsed time,
-there is no difference between the two.
 
 There are various methods available for manipulating and comparing TimeValue objects.
 
@@ -196,9 +190,8 @@ $time->compare(new TimeValue('00:50:00'), '<'); //Returns true
 $time->compare(new TimeValue('00:10:00'), '>='); //Returns false
 $time->compare(new TimeValue('01:10:00'), '<='); //Returns false
 ```
----
 
-###TimePeriod
+---
 
 [1]: http://www.hackcraft.net/web/datetime/#time
 [2]: http://php.net/datetime

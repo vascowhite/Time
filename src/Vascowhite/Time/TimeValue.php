@@ -152,6 +152,22 @@ class TimeValue
     }
 
     /**
+     * @param TimeValue[] $timeValues
+     * @return TimeValue
+     */
+    public static function average(array $timeValues)
+    {
+        $totalSeconds = 0;
+        if(count($timeValues) === 0){
+            return new TimeValue('00:00:00');
+        }
+        foreach($timeValues as $timeValue){
+            $totalSeconds += $timeValue->getSeconds();
+        }
+        return new TimeValue('00:00:' . $totalSeconds / count($timeValues));
+    }
+
+    /**
      * @return string
      */
     public function __toString()

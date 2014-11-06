@@ -153,4 +153,23 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $result = ob_get_clean();
         $this->assertEquals('00:00:00', $result, "Cannot echo!");
     }
+
+    public function testPassInvalidTime()
+    {
+        $testTimeString = ' ';
+        $testTimeValue = new TimeValue($testTimeString);
+        $this->assertEquals(0, $testTimeValue->getSeconds(), "Could not deal with invalid time string");
+    }
+
+    public function testCanCalculateAverage()
+    {
+        //With a populated array
+        $timeValue1 = new TimeValue('00:20:00'); //1200 seconds
+        $timeValue2 = new TimeValue('00:10:00'); //600 seconds
+        $timeValue3 = new TimeValue('00:30:00'); //1800 seconds
+        $this->assertEquals(1200, TimeValue::average([$timeValue1, $timeValue2, $timeValue3])->getSeconds(), "Could not calculate average");
+
+        //With an empty array
+        $this->assertEquals(0, TimeValue::average([])->getSeconds(), "Could not calculate average on empty array");
+    }
 } 
