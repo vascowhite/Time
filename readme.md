@@ -194,6 +194,39 @@ $time->compare(new TimeValue('00:10:00'), '>='); //Returns false
 $time->compare(new TimeValue('01:10:00'), '<='); //Returns false
 ```
 
+###TimeValue::average()
+
+
+__Signature__
+
+```php
+TimeValue average(TimeValues[])
+```
+
+
+__Arguments__
+
+An array of TimeValue objects.
+
+
+__Return__
+
+Returns a TimeValue object set to the average number of seconds of the 
+TimeValue objects in the supplied array.
+
+
+__Example__
+
+
+```php
+$timeValue1 = new TimeValue('00:20:00'); //1200 seconds
+$timeValue2 = new TimeValue('00:10:00'); //600 seconds
+$timeValue3 = new TimeValue('00:30:00'); //1800 seconds
+
+$average = TimeValue::average([$timeValue1, $timeValue2, $timeValue3]);
+echo $average->getSeconds(); //Output = 1200
+```
+
 ---
 
 [1]: http://www.hackcraft.net/web/datetime/#time
