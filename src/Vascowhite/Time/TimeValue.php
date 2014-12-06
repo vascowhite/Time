@@ -38,7 +38,7 @@ class TimeValue
     public function __construct($time = null)
     {
         if(!$time){
-            $time = (new \DateTime())->format('h:i:s');
+            $time = (new \DateTime())->format('H:i:s');
         }
         $timeArray = explode(':', $time);
         $hours = (int)$timeArray[0];
