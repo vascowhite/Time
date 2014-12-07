@@ -43,7 +43,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     {
         $this->testDateTime = new \DateTime();
         $this->testTimeValue = new TimeValue();
-        $this->testSeconds = (int)$this->testDateTime->format('h') * TimeValue::SECONDS_IN_HOUR
+        $this->testSeconds = (int)$this->testDateTime->format('H') * TimeValue::SECONDS_IN_HOUR
             + (int)$this->testDateTime->format('i') * TimeValue::SECONDS_IN_MINUTE
             + (int)$this->testDateTime->format('s');
     }
@@ -66,7 +66,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
 
     public function testCanGetTime()
     {
-        $this->assertEquals($this->testDateTime->format('h:i:s'), $this->testTimeValue->getTime(), "Time string not valid");
+        $this->assertEquals($this->testDateTime->format('H:i:s'), $this->testTimeValue->getTime(), "Time string not valid");
         $timeString = '08:05:22';
         $testTimeValue = new TimeValue($timeString);
         $this->assertEquals($timeString, $testTimeValue->getTime(), "Time string not valid");
