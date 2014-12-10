@@ -18,39 +18,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Vascowhite\Time;
+use \Exception;
 
+class TimeValue {
 
-class TimeValue
-{
     const SECONDS_IN_HOUR = 3600;
     const SECONDS_IN_MINUTE = 60;
-    /**
-     * @var int Seconds from midnight.
-     */
     private $seconds = 0;
 
     /**
-     * @param String|null $time A string representing a time.
-     *
-     * If null is passed to constructor then object defaults to current system time.
-     * Format is  "hh:mm:ss", mm and ss are optional and will default to 0
+     * @param string $time   A string representing a time
+     * @param string $format A string representing a format (H, i & s are supported)
+     * @return $this
      */
-    public function __construct($time = null)
+    public function __construct($time, $format = 'H:i:s')
     {
-        if(!$time){
-            $time = (new \DateTime())->format('H:i:s');
+        $pattern = "~^(?<sign>\+|-)?" . preg_replace(['~H~', '~i~', '~s~'], '(?<$0>\d+)', $format) . "$~";
+        if (!preg_match($pattern, $time, $match)) {
+            throw new Exception(sprintf('Format "%s" cannot match time "%s"', $format, $time));
         }
-        $timeArray = explode(':', $time);
-        $hours = (int)$timeArray[0];
-        $minutes = 0;
-        $seconds = 0;
-        if(isset($timeArray[1])){
-            $minutes = (int)$timeArray[1];
+
+        $this->seconds =
+            (isset($match['H']) ? $match['H'] * self::SECONDS_IN_HOUR : 0) +
+            (isset($match['i']) ? $match['i'] * self::SECONDS_IN_MINUTE : 0) +
+            (isset($match['s']) ? $match['s'] : 0);
+
+        if ($match['sign'] == '-') {
+            $this->seconds = -$this->seconds;
         }
-        if(isset($timeArray[2])){
-            $seconds = (int)$timeArray[2];
-        }
-        $this->seconds = $hours * self::SECONDS_IN_HOUR + $minutes * self::SECONDS_IN_MINUTE + $seconds;
     }
 
     /**
@@ -66,20 +61,18 @@ class TimeValue
      */
     public function getTime()
     {
-        $seconds = $this->seconds;
-        $h = floor($seconds / self::SECONDS_IN_HOUR);
-        $seconds -= $h * self::SECONDS_IN_HOUR;
-        $m = floor($seconds / self::SECONDS_IN_MINUTE);
-        $seconds -= $m * self::SECONDS_IN_MINUTE;
-        $s = floor($seconds);
-        return sprintf('%02d:%02d:%02d', $h, $m, $s);
+        $seconds = abs($this->seconds);
+        $H = floor($seconds / self::SECONDS_IN_HOUR);
+        $i = ($seconds / self::SECONDS_IN_MINUTE) % self::SECONDS_IN_MINUTE;
+        $s = $seconds % self::SECONDS_IN_MINUTE;
+        return sprintf('%s%02d:%02d:%02d', $this->seconds < 0 ? '-' : '', $H, $i, $s);
     }
 
     /**
      * Add a TimeValue to $this
      *
      * @param TimeValue $time
-     * @return TimeValue
+     * @return $this
      */
     public function add(TimeValue $time)
     {
@@ -91,7 +84,7 @@ class TimeValue
      * Subtract a TimeValue from $this
      *
      * @param TimeValue $time
-     * @return TimeValue
+     * @return $this
      */
     public function sub(TimeValue $time)
     {
@@ -100,19 +93,38 @@ class TimeValue
     }
 
     /**
-     * @param TimeValue[] $timeValues
+     * Calculate average of TimeValues
+     *
+     * @param  TimeValue[] $timeValues
      * @return TimeValue
      */
     public static function average(array $timeValues)
     {
-        $totalSeconds = 0;
-        if(count($timeValues) === 0){
-            return new TimeValue('00:00:00');
+        $count = $sum = 0;
+        foreach ($timeValues as $timeValue) {
+            if ($timeValue instanceof TimeValue) {
+                $count++;
+                $sum += $timeValue->getSeconds();
+            }
         }
-        foreach($timeValues as $timeValue){
-            $totalSeconds += $timeValue->getSeconds();
+        return new TimeValue($count ? round($sum / $count) : 0, 's');
+    }
+
+    /**
+     * Calculate sum of TimeValues
+     *
+     * @param  TimeValue[] $timeValues
+     * @return TimeValue
+     */
+    public static function sum(array $timeValues)
+    {
+        $sum = 0;
+        foreach ($timeValues as $timeValue) {
+            if ($timeValue instanceof TimeValue) {
+                $sum += $timeValue->getSeconds();
+            }
         }
-        return new TimeValue('00:00:' . $totalSeconds / count($timeValues));
+        return new TimeValue($sum, 's');
     }
 
     /**
