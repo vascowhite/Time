@@ -76,31 +76,27 @@ class TimeValue
     }
 
     /**
-     * Adds this TimeValue to another
+     * Add a TimeValue to $this
      *
      * @param TimeValue $time
      * @return TimeValue
      */
     public function add(TimeValue $time)
     {
-        $seconds = $this->seconds + $time->getSeconds();
-        return new TimeValue("00:00:$seconds");
+        $this->seconds += $time->getSeconds();
+        return $this;
     }
 
     /**
-     * Subtracts a TimeValue from this one.
+     * Subtract a TimeValue from $this
      *
      * @param TimeValue $time
      * @return TimeValue
      */
     public function sub(TimeValue $time)
     {
-        $seconds = $this->seconds - $time->getSeconds();
-        //TODO: Does it make sense to have negative time values?
-        if($seconds < 0){
-            $seconds = 0;
-        }
-        return new TimeValue("00:00:$seconds");
+        $this->seconds -= $time->getSeconds();
+        return $this;
     }
 
     /**
