@@ -104,54 +104,6 @@ class TimeValue
     }
 
     /**
-     * Compares two TimeValues, the following comparisons are accepted:-
-     *
-     *  '=' returns true if $time is equal to $this
-     *  '>' returns true if $time is Greater Than $this
-     *  '<' returns true if $time is Less Than $this
-     *  '<=' returns true if $time is Less Than or Equal to $this
-     *  '>=' returns true if $time is Greater Than or Equal to $this
-     *
-     * @param TimeValue $time The TimeValue to compare this with
-     * @param string    $comparison
-     * @return bool
-     */
-    public function compare(TimeValue $time, $comparison = '=')
-    {
-        $result = false;
-        switch($comparison){
-            case '=':
-                if($this->seconds === $time->getSeconds()){
-                    $result = true;
-                }
-                break;
-            case '>':
-                if($time->getSeconds() > $this->seconds){
-                    $result = true;
-                }
-                break;
-            case '<':
-                if($time->getSeconds() < $this->seconds){
-                    $result = true;
-                }
-                break;
-            case '<=':
-                if($time->getSeconds() <= $this->seconds){
-                    $result = true;
-                }
-                break;
-            case '>=':
-                if($time->getSeconds() >= $this->seconds){
-                    $result = true;
-                }
-                break;
-            default:
-                break;
-        }
-        return $result;
-    }
-
-    /**
      * @param TimeValue[] $timeValues
      * @return TimeValue
      */
@@ -175,33 +127,4 @@ class TimeValue
         return $this->getTime();
     }
 
-    /**
-     * @param TimeValue $time
-     *
-     * @return bool
-     */
-    public function isGreaterThan(TimeValue $time)
-    {
-        return $this->compare($time, '<');
-    }
-
-    /**
-     * @param TimeValue $time
-     *
-     * @return bool
-     */
-    public function isLessThan(TimeValue $time)
-    {
-        return $this->compare($time, '>');
-    }
-
-    /**
-     * @param TimeValue $time
-     *
-     * @return bool
-     */
-    public function isEqualTo(TimeValue $time)
-    {
-        return $this->compare($time);
-    }
-} 
+}
