@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Vascowhite\tests;
 use Vascowhite\Time\TimeValue;
+use \Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -42,7 +43,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->testDateTime = new \DateTime();
-        $this->testTimeValue = new TimeValue();
+        $this->testTimeValue = new TimeValue($this->testDateTime->format('H:i:s'));
         $this->testSeconds = (int)$this->testDateTime->format('H') * TimeValue::SECONDS_IN_HOUR
             + (int)$this->testDateTime->format('i') * TimeValue::SECONDS_IN_MINUTE
             + (int)$this->testDateTime->format('s');
@@ -84,66 +85,67 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     public function testCanSubtract()
     {
         $testTimeValue = new TimeValue('00:00:100');
-        $this->assertEquals(0, $testTimeValue->sub(new TimeValue('00:00:100'))->getSeconds(), "Can't subtract!");
-
-        $testTimeValue = new TimeValue('00:00:100');
-        $this->assertEquals(0, $testTimeValue->sub(new TimeValue('00:00:200'))->getSeconds(), "Can't subtract!");
+        $this->assertEquals(0, $testTimeValue->sub(new TimeValue('00:00:100'))->getSeconds(), "1Can't subtract!");
 
         $testTimeValue = new TimeValue('00:00:200');
-        $this->assertEquals(100, $testTimeValue->sub(new TimeValue('00:00:100'))->getSeconds(), "Can't subtract!");
+        $this->assertEquals(0, $testTimeValue->sub(new TimeValue('00:00:200'))->getSeconds(), "2Can't subtract!");
+
+        $testTimeValue = new TimeValue('00:00:200');
+        $this->assertEquals(100, $testTimeValue->sub(new TimeValue('00:00:100'))->getSeconds(), "3Can't subtract!");
     }
 
     public function testAddAndSubtractReturnCorrectFormat()
     {
-        $testTimeValue = new TimeValue('01:30');
-        $this->assertEquals('02:00:00', $testTimeValue->add(new TimeValue('00:30'))->getTime());
+        $testTimeValue = new TimeValue('01:30', 'H:i');
+        $this->assertEquals('02:00:00', $testTimeValue->add(new TimeValue('00:30', 'H:i'))->getTime());
 
-        $testTimeValue = new TimeValue('01:30');
-        $this->assertEquals('01:00:00', $testTimeValue->sub(new TimeValue('00:30'))->getTime());
+        $testTimeValue = new TimeValue('01:30', 'H:i');
+        $this->assertEquals('01:00:00', $testTimeValue->sub(new TimeValue('00:30', 'H:i'))->getTime());
     }
 
     public function testCanCompareEquals()
     {
-        $testTimeValue = new TimeValue('12');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('12'), '='), 'Cannot compare equals.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('12:01'), '='), 'Cannot compare equals.');
+        $testTimeValue = new TimeValue('12', 'H');
+        $this->assertTrue($testTimeValue == new TimeValue('12', 'H'), 'Cannot compare equals.');
+        $this->assertFalse($testTimeValue == new TimeValue('12:01', 'H:i'), 'Cannot compare equals.');
     }
 
     public function testCanCompareGreaterThan()
     {
-        $testTimeValue = new TimeValue('12');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('12:30'), '>'), 'Cannot compare equals.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('12'), '>'), 'Cannot compare equals.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('11'), '>'), 'Cannot compare equals.');
+        $testTimeValue = new TimeValue('12', 'H');
+        $this->assertTrue($testTimeValue < new TimeValue('12:30', 'H:i'), '#1 Cannot compare equals.');
+        $this->assertFalse($testTimeValue < new TimeValue('12', 'H'), '#2 Cannot compare equals.');
+        $this->assertFalse($testTimeValue < new TimeValue('11', 'H'), '#3 Cannot compare equals.');
     }
 
     public function testCanCompareLessThan()
     {
-        $testTimeValue = new TimeValue('12');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('11:30'), '<'), 'Cannot compare equals.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('12'), '<'), 'Cannot compare equals.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('12:30'), '<'), 'Cannot compare equals.');
+        $testTimeValue = new TimeValue('12', 'H');
+        $this->assertTrue($testTimeValue > new TimeValue('11:30', 'H:i'), 'Cannot compare equals.');
+        $this->assertFalse($testTimeValue > new TimeValue('12', 'H'), 'Cannot compare equals.');
+        $this->assertFalse($testTimeValue > new TimeValue('12:30', 'H:i'), 'Cannot compare equals.');
     }
 
     public function testCompareLessThanOrEqualTo()
     {
-        $testTimeValue = new TimeValue('12');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('11:30'), '<='), 'Cannot compare <=.');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('12'), '<='), 'Cannot compare <=.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('12:30'), '<='), 'Cannot compare <=.');
+        $testTimeValue = new TimeValue('12', 'H');
+        $this->assertTrue($testTimeValue >= new TimeValue('11:30', 'H:i'), 'Cannot compare <=.');
+        $this->assertTrue($testTimeValue >= new TimeValue('12', 'H'), 'Cannot compare <=.');
+        $this->assertFalse($testTimeValue >= new TimeValue('12:30', 'H:i'), 'Cannot compare <=.');
     }
 
     public function testCompareGreaterThanOrEqualTo(){
-        $testTimeValue = new TimeValue('12');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('12:30'), '>='), 'Cannot compare >=.');
-        $this->assertTrue($testTimeValue->compare(new TimeValue('12'), '>='), 'Cannot compare >=.');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('11:30'), '>='), 'Cannot compare >=.');
+        $testTimeValue = new TimeValue('12', 'H');
+        $this->assertTrue($testTimeValue <= new TimeValue('12:30', 'H:i'), 'Cannot compare >=.');
+        $this->assertTrue($testTimeValue <= new TimeValue('12', 'H'), 'Cannot compare >=.');
+        $this->assertFalse($testTimeValue <= new TimeValue('11:30', 'H:i'), 'Cannot compare >=.');
     }
 
     public function testCompareReturnsFalseOnWrongSymbol()
     {
-        $testTimeValue = new TimeValue('12');
-        $this->assertFalse($testTimeValue->compare(new TimeValue('11:30'), '*'), 'Cannot compare equals.');
+        // this is meaningless, since PHP will already trigger notice when multiplying objects with *, or comparing with unknown symbol
+        #$testTimeValue = new TimeValue('12', 'H');
+        #$this->assertFalse($testTimeValue->compare(new TimeValue('11:30'), '*'), 'Cannot compare equals.');
     }
 
     public function testCanEcho(){
@@ -156,9 +158,11 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
 
     public function testPassInvalidTime()
     {
-        $testTimeString = ' ';
-        $testTimeValue = new TimeValue($testTimeString);
-        $this->assertEquals(0, $testTimeValue->getSeconds(), "Could not deal with invalid time string");
+        try {
+            new TimeValue(' ');
+        } catch (Exception $e) {
+            $this->assertTrue(true, "Could not deal with invalid time string");
+        }
     }
 
     public function testCanCalculateAverage()
@@ -172,4 +176,5 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         //With an empty array
         $this->assertEquals(0, TimeValue::average([])->getSeconds(), "Could not calculate average on empty array");
     }
-} 
+
+}
