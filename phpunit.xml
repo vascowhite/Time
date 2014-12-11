@@ -9,11 +9,12 @@
          processIsolation="false"
          stopOnFailure="false"
          syntaxCheck="false"
-         bootstrap="vendor/autoload.php"
+         bootstrap="./vendor/autoload.php"
+         verbose="true"
         >
     <testsuites>
-        <testsuite name="Time Test Suite">
-            <directory>./tests/</directory>
+        <testsuite name="Vascowhite/Time Test Suite">
+            <directory>./src/Vascowhite/Tests</directory>
         </testsuite>
     </testsuites>
 
@@ -22,7 +23,7 @@
             <directory>./</directory>
             <exclude>
                 <directory>./vendor</directory>
-                <directory>./tests</directory>
+                <directory>./src/Vascowhite/Tests</directory>
             </exclude>
         </whitelist>
     </filter>
