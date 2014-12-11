@@ -183,7 +183,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
             $timeValue1 = new TimeValue('00:20:00'), //1200 seconds
             $timeValue2 = new TimeValue('00:10:00'), //600 seconds
             $timeValue3 = new TimeValue('00:30:00'), //1800 seconds
-            $timeValue4 = new TimeValue('00:00:30'), //30 seconds
+            $timeValue4 = new TimeValue('-30', 's'), //30 seconds
         ];
         $this->assertEquals(3570, TimeValue::sum($testValues)->getSeconds(), "Could not sum TimeValues");
     }
