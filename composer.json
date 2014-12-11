@@ -1,5 +1,5 @@
 {
-    "name": "Vascowhite/Time",
+    "name": "vascowhite/time",
     "description": "A class to deal with operations on times independent of date.",
     "minimum-stability": "stable",
     "license": "proprietary",
