@@ -29,11 +29,11 @@ class TimeValue {
     /**
      * @param string $time   A string representing a time
      * @param string $format A string representing a format (H, i & s are supported)
-     * @return $this
+     * @throws \Exception
      */
     public function __construct($time, $format = 'H:i:s')
     {
-        $pattern = "~^(?<sign>\+|-)?" . preg_replace(['~H~', '~i~', '~s~'], '(?<$0>\d+)', $format) . "$~";
+        $pattern = '~^(?<sign>\+|-)?' . preg_replace(['~H~', '~i~', '~s~'], '(?<$0>\d+)', $format) . "$~";
         if (!preg_match($pattern, $time, $match)) {
             throw new Exception(sprintf('Format "%s" cannot match time "%s"', $format, $time));
         }
