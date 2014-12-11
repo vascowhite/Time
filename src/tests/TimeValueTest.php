@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 namespace Vascowhite\tests;
-use Vascowhite\Time\TimeValue;
+use Time\TimeValue;
 use \Exception;
 
 require_once __DIR__ . '/../vendor/autoload.php';
@@ -51,7 +51,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
 
     public function testCanInstantiate()
     {
-        $this->assertInstanceOf('Vascowhite\Time\TimeValue', $this->testTimeValue, "Could not instantiate TimeValue");
+        $this->assertInstanceOf('Time\TimeValue', $this->testTimeValue, "Could not instantiate TimeValue");
     }
 
     public function testCanGetSeconds()
@@ -139,13 +139,6 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $this->assertTrue($testTimeValue <= new TimeValue('12:30', 'H:i'), 'Cannot compare >=.');
         $this->assertTrue($testTimeValue <= new TimeValue('12', 'H'), 'Cannot compare >=.');
         $this->assertFalse($testTimeValue <= new TimeValue('11:30', 'H:i'), 'Cannot compare >=.');
-    }
-
-    public function testCompareReturnsFalseOnWrongSymbol()
-    {
-        // this is meaningless, since PHP will already trigger notice when multiplying objects with *, or comparing with unknown symbol
-        #$testTimeValue = new TimeValue('12', 'H');
-        #$this->assertFalse($testTimeValue->compare(new TimeValue('11:30'), '*'), 'Cannot compare equals.');
     }
 
     public function testCanEcho(){
