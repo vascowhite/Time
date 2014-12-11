@@ -38,7 +38,7 @@ TimeValue implements the __toString() magic method, so it can be echoed etc..
 __Signature:-__
 
 ```php
-TimeValue __construct(Mixed $time = null)
+TimeValue __construct(Mixed $time = null, String $format = 'H:i:s')
 ```
 
 __Arguments__
@@ -46,17 +46,19 @@ __Arguments__
 `$time` is a string or null.
 If null is passed, then a TimeValue object is constructed with the current system time.
 
-If `$time` is a string then it is generally of the format 'hh:mm:ss', although variations on this are allowed.
+`$format` Optional format string, defaults to 'H:i:s'.
+
 The following are examples of valid formats:-
 
 ```php
 new TimeValue('12:15:20'); // 12 hours 15 minutes 20 seconds
-new TimeValue('12'); // 12 hours 0 minutes 0 seconds
-new TimeValue('12:15'); // 12 hours 15 minutes
-new TimeValue('00:00:20'); // 20 seconds.
+new TimeValue('12', 'H'); // 12 hours 0 minutes 0 seconds
+new TimeValue('12:15', 'H:i'); // 12 hours 15 minutes
+new TimeValue('12:15', 'i:s'); // 12 minutes 15 seconds
+new TimeValue('20', 's'); // 20 seconds.
 ```
 
-Although the format is specified as 'hh:mm:ss' none of the fields are limited to 2 digits. The following are also valid:-
+Although the formats are specified none of the fields are limited to 2 digits. The following are also valid:-
 
 ```php
 new TimeValue('120:150:200'); // 120 hours 150 minutes 200 seconds Will output '122:33:20'
