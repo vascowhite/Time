@@ -130,7 +130,7 @@ The TimeValue to be added to the receiver.
 
 __Return__
 
-Returns a TimeValue.
+Returns the receiver after the addition has been performed.
 
 __Example__
 
@@ -153,47 +153,13 @@ The TimeValue to be subtracted from the receiver.
 
 __Return__
 
-Returns a TimeValue.
+Returns the receiver after the subtraction has been performed.
 
 __Example__
 
 ```php
 $time = new TimeValue('01:00:00');
 echo $time->sub(new TimeValue('00:30'); // Output "00:30:00"
-```
-###TimeValue::compare()
-
-
-__Signature__
-
-```php
-Bool compare(TimeValue, String)
-```
-
-__Arguments__
-
-The TimeValue the receiver is to be compared with.  
-The comparison to be carried out. The following are accepted:-
-
- -  '=' returns true if TimeValue is equal to the receiver.
- -  '>' returns true if TimeValue is Greater Than the receiver.
- -  '<' returns true if TimeValue is Less Than the receiver.
- -  '<=' returns true if TimeValue is Less Than or Equal to the receiver.
- -  '>=' returns true if TimeValue is Greater Than or Equal to the receiver.
-
-__Return__
-
- Returns true as above, false otherwise.
-
-__Example__
-
-```php
-$time = new TimeValue('01:00:00');
-$time->compare(new TimeValue('01:00:00'), '='); //Returns true
-$time->compare(new TimeValue('01:10:00'), '>'); //Returns true
-$time->compare(new TimeValue('00:50:00'), '<'); //Returns true
-$time->compare(new TimeValue('00:10:00'), '>='); //Returns false
-$time->compare(new TimeValue('01:10:00'), '<='); //Returns false
 ```
 
 ###TimeValue::average()
