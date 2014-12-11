@@ -227,6 +227,39 @@ $average = TimeValue::average([$timeValue1, $timeValue2, $timeValue3]);
 echo $average->getSeconds(); //Output = 1200
 ```
 
+###TimeValue::sum()
+
+
+__Signature__
+
+```php
+TimeValue sum(TimeValues[])
+```
+
+
+__Arguments__
+
+An array of TimeValue objects.
+
+
+__Return__
+
+Returns a TimeValue object set to the sum the 
+TimeValue objects in the supplied array.
+
+
+__Example__
+
+
+```php
+$timeValue1 = new TimeValue('00:20:00'); //1200 seconds
+$timeValue2 = new TimeValue('00:10:00'); //600 seconds
+$timeValue3 = new TimeValue('00:30:00'); //1800 seconds
+
+$sum = TimeValue::sum([$timeValue1, $timeValue2, $timeValue3]);
+echo $sum->getSeconds(); //Output = 3600
+```
+
 ---
 
 [1]: http://www.hackcraft.net/web/datetime/#time
