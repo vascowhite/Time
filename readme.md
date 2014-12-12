@@ -226,8 +226,82 @@ $timeValue3 = new TimeValue('00:30:00'); //1800 seconds
 
 $sum = TimeValue::sum([$timeValue1, $timeValue2, $timeValue3]);
 echo $sum->getSeconds(); //Output = 3600
+
+###TimeValue::createFromDateInterval()
+
+
+__Signature__
+
+```php
+TimeValue createFromDateInterval(\DateInterval)
 ```
 
+
+__Arguments__
+
+A \DateInterval object.
+
+
+__Return__
+
+Returns a TimeValue object set to the number of seconds
+represented by the \DateInterval object.
+
+
+__Example__
+
+
+```php
+$interval = new \DateInterval('P1Y1M6DT14H12M6S');
+$timeValue = TimeValue::createFromDateInterval($interval); //34783926 seconds
+```
+
+###TimeValue::toDateInterval()
+
+
+__Signature__
+
+```php
+TimeValue toDateInterval()
+```
+
+
+__Arguments__
+
+None.
+
+
+__Return__
+
+Returns a \DateInterval object with all fields set as if created by \DateTime::diff()
+
+
+__Example__
+
+
+```php
+$timeValue = new TimeValue('34783926', 's');
+var_dump($timeValue);
+/*
+Output
+object(DateInterval)[2]
+   public 'y' => int 1
+   public 'm' => int 1
+   public 'd' => int 6
+   public 'h' => int 14
+   public 'i' => int 12
+   public 's' => int 6
+   public 'weekday' => int 0
+   public 'weekday_behavior' => int 0
+   public 'first_last_day_of' => int 0
+   public 'invert' => int 0
+   public 'days' => int 402
+   public 'special_type' => int 0
+   public 'special_amount' => int 0
+   public 'have_weekday_relative' => int 0
+   public 'have_special_relative' => int 0
+*/
+```
 ---
 
 [1]: http://www.hackcraft.net/web/datetime/#time

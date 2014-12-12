@@ -135,4 +135,27 @@ class TimeValue {
         return $this->getTime();
     }
 
+
+    /**
+     * @param \DateInterval $interval
+     * @return TimeValue
+     */
+    public static function createFromDateInterval(\DateInterval $interval)
+    {
+        $utc = new \DateTimeZone('UTC');
+        $start = (new \DateTimeImmutable(null, $utc));
+        $end = $start->add($interval);
+        return new TimeValue($end->getTimestamp() - $start->getTimestamp(), 's');
+    }
+
+    /**
+     * @return bool|\DateInterval
+     */
+    public function toDateInterval()
+    {
+        $utc = new \DateTimeZone('UTC');
+        $start = new \DateTime(null, $utc);
+        $end = new \DateTime('@' . ($start->getTimestamp() + $this->getSeconds()), $utc);
+        return ($start->diff($end));
+    }
 }
