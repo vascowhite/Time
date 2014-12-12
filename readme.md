@@ -7,7 +7,7 @@ This is a class for dealing with times.
 
 The [time datatype][1] represents a period of time. It is expressed in the format 'H:i:s' (a left truncation of the representation of datetime). It is the elapsed time that would be measured on a stop watch that is unaware of date, time zones or DST.
 
-PHP's native DateTimePeriod is ecxellent for represent a time period of any length, however it does not lend itself to manipulating time periods. Hence, this class was born. Its scope has been limited to hours, minutes and seconds for now as this allows for accurate manipulation without worrying about DST etc, the DateTime classes already have that well covered.
+PHP's native DateTimePeriod is ecxellent for representing a time period of any length, however it does not lend itself to manipulating time periods or performing calculations with them. Hence, this class was born. Its scope has been limited to hours, minutes and seconds for now as this allows for accurate manipulation without worrying about DST etc, the DateTime classes already have that well covered.
 
 This class can add, subtract, average, sum and compare times. It will also convert a `\DateInterval` object to a `TimeValue` and a `TimeValue` object into a `\DateInterval` object.
 
