@@ -226,6 +226,7 @@ $timeValue3 = new TimeValue('00:30:00'); //1800 seconds
 
 $sum = TimeValue::sum([$timeValue1, $timeValue2, $timeValue3]);
 echo $sum->getSeconds(); //Output = 3600
+```
 
 ###TimeValue::createFromDateInterval()
 
