@@ -5,15 +5,11 @@
 ##Introduction
 This is a class for dealing with times.
 
-The [time datatype][1] represents a period of time. It is expressed in the format hh:mm:ss
-(a left truncation of the representation of datetime). It is the elapsed time that would be measured on a stop watch that
-is unaware of date, time zones or DST.
+The [time datatype][1] represents a period of time. It is expressed in the format 'H:i:s' (a left truncation of the representation of datetime). It is the elapsed time that would be measured on a stop watch that is unaware of date, time zones or DST.
 
-PHP's native DateTimePeriod is ecxellent for represent a time period of any length, however it does not lend itself to manipulating
-time periods. Hence, this class was born. Its scope has been limited to hours, minutes and seconds for now as this allows for accurate
-manipulation without worrying about DST etc, the DateTime classes already have that well covered.
+PHP's native DateTimePeriod is ecxellent for represent a time period of any length, however it does not lend itself to manipulating time periods. Hence, this class was born. Its scope has been limited to hours, minutes and seconds for now as this allows for accurate manipulation without worrying about DST etc, the DateTime classes already have that well covered.
 
-This class can add, subtract and compare times.
+This class can add, subtract, average, sum and compare times. It will also convert a `\DateInterval` object to a `TimeValue` and a `TimeValue` object into a `\DateInterval` object.
 
 ##Installation
 
@@ -25,13 +21,15 @@ Install using composer, add the following to composer.json:-
 }
 ```
 
+Other methods of installation are possible, but supported.
+
 ###TimeValue
 This class represents a time datatype. It knows nothing about dates, if you need times associated with dates, then PHP's
 [DateTime][2] Classes are what you are looking for.
 
 There are various methods available for manipulating and comparing TimeValue objects.
 
-TimeValue implements the __toString() magic method, so it can be echoed etc..
+TimeValue implements the `__toString()` magic method, so it can be echoed etc..
 
 ####TimeValue::__construct()
 
@@ -46,7 +44,7 @@ __Arguments__
 `$time` is a string or null.
 If null is passed, then a TimeValue object is constructed with the current system time.
 
-`$format` Optional format string, defaults to 'H:i:s'.
+`$format` Optional format string, defaults to 'H:i:s'. Available formats are 'H:i:s', 'H', 'i', or 's'.
 
 The following are examples of valid formats:-
 
@@ -67,7 +65,7 @@ new TimeValue('00:00:36000'); // 36000 seconds. Will output '10:00:00'
 
 __Return__
 
-Returns a TimeValue object.
+Returns a `TimeValue` object.
 
 ####TimeValue::getSeconds()
 
@@ -83,7 +81,7 @@ None.
 
 __Return__
 
-Returns an integer representing the number of seconds that the TimeValue spans.
+Returns an integer representing the number of seconds that the `TimeValue` spans.
 
 __Example__
 
@@ -106,8 +104,7 @@ None.
 
 __Return__
 
-Returns a string representing the time in the format 'hh:mm:ss'.
-The 'hh' portion will expand to the required number of digits to represent the hour.
+Returns a string representing the time in the format 'H:i:s'. The 'H' portion will expand to the required number of digits to represent the hour.
 
 __Example__
 
@@ -126,7 +123,7 @@ TimeValue add(TimeValue)
 
 __Arguments__
 
-The TimeValue to be added to the receiver.
+The `TimeValue` to be added to the receiver.
 
 __Return__
 
@@ -149,7 +146,7 @@ TimeValue sub(TimeValue)
 
 __Arguments__
 
-The TimeValue to be subtracted from the receiver.
+The `TimeValue` to be subtracted from the receiver.
 
 __Return__
 
@@ -174,13 +171,12 @@ TimeValue average(TimeValues[])
 
 __Arguments__
 
-An array of TimeValue objects.
+An array of `TimeValue` objects.
 
 
 __Return__
 
-Returns a TimeValue object set to the average number of seconds of the 
-TimeValue objects in the supplied array.
+Returns a `TimeValue` object set to the average number of seconds of the `TimeValue` objects in the supplied array.
 
 
 __Example__
@@ -207,13 +203,12 @@ TimeValue sum(TimeValues[])
 
 __Arguments__
 
-An array of TimeValue objects.
+An array of `TimeValue` objects.
 
 
 __Return__
 
-Returns a TimeValue object set to the sum the 
-TimeValue objects in the supplied array.
+Returns a `TimeValue` object set to the sum the `TimeValue` objects in the supplied array.
 
 
 __Example__
@@ -240,13 +235,12 @@ TimeValue createFromDateInterval(\DateInterval)
 
 __Arguments__
 
-A \DateInterval object.
+A `\DateInterval` object.
 
 
 __Return__
 
-Returns a TimeValue object set to the number of seconds
-represented by the \DateInterval object.
+Returns a `TimeValue` object set to the number of seconds represented by the `\DateInterval` object.
 
 
 __Example__
@@ -263,7 +257,7 @@ $timeValue = TimeValue::createFromDateInterval($interval); //34783926 seconds
 __Signature__
 
 ```php
-TimeValue toDateInterval()
+TimeValue||Bool toDateInterval()
 ```
 
 
@@ -274,7 +268,7 @@ None.
 
 __Return__
 
-Returns a \DateInterval object with all fields set as if created by \DateTime::diff()
+Returns a `\DateInterval` object with all fields set as if created by `\DateTime::diff()`. Returns `false` if the conversion fails.
 
 
 __Example__
