@@ -140,11 +140,11 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testCanEcho(){
-        $testTimeValue = new TimeValue('00:00:00');
+        $testTimeValue = new TimeValue('129:00:00');
         ob_start();
         echo $testTimeValue;
         $result = ob_get_clean();
-        $this->assertEquals('00:00:00', $result, "Cannot echo!");
+        $this->assertEquals('129:00:00', $result, "Cannot echo!");
     }
 
     public function testPassInvalidTime()
