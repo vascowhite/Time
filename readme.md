@@ -26,6 +26,8 @@ Other methods of installation are possible, but not supported.
 ##Requirements
 Requires PHP >= 5.5.0
 
+---
+
 ###TimeValue
 This is an __immutable__ class that represents a time data type. It knows nothing about dates, if you need times associated with dates, then PHP's
 [`\DateTime`][2] Classes are what you are looking for.
