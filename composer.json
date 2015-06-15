@@ -1,21 +1,30 @@
 {
     "name": "vascowhite/time",
     "description": "A class to deal with operations on times independent of date.",
-    "minimum-stability": "stable",
-    "license": "proprietary",
+    "keywords": [
+        "Time",
+        "periods",
+        "calculations"
+    ],
+    "support": {
+        "issues": "https://github.com/vascowhite/Time/issues"
+    },
+    "license": "GPL-3.0",
     "authors": [
         {
             "name": "Paul White",
-            "email": "vascowhite@gmail.com"
+            "email": "paul@vascowhite.co.uk",
+            "homepage": "http://www.vascowhite.co.uk",
+            "role": "developer"
         }
     ],
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "autoload": {
         "psr-0": {
             "Vascowhite\\Time":"src/"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require-dev": {
         "phpunit/phpunit": "*"
     }

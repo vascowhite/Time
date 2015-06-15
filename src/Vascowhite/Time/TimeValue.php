@@ -1,7 +1,10 @@
 <?php
 /**
-Time
+Time: Perform calculations on periods of time.
+
 Copyright (C) 2014  Paul White
+
+email: paul at vascowhite dot co dot uk
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -57,7 +60,7 @@ class TimeValue {
     }
 
     /**
-     * @return string The time format hh:mm:ss
+     * @return string The time in the format 'H:i:s'
      */
     public function getTime()
     {
@@ -69,27 +72,27 @@ class TimeValue {
     }
 
     /**
-     * Add a TimeValue to $this
+     * Add a TimeValue to $this and return a new object
      *
      * @param TimeValue $time
-     * @return $this
+     * @return TimeValue
      */
     public function add(TimeValue $time)
     {
-        $this->seconds += $time->getSeconds();
-        return $this;
+        $totalSeconds = $this->seconds + $time->getSeconds();
+        return new TimeValue("$totalSeconds", 's');
     }
 
     /**
-     * Subtract a TimeValue from $this
+     * Subtract a TimeValue from $this and return a new object.
      *
      * @param TimeValue $time
-     * @return $this
+     * @return TimeValue
      */
     public function sub(TimeValue $time)
     {
-        $this->seconds -= $time->getSeconds();
-        return $this;
+        $totalSeconds = $this->seconds - $time->getSeconds();
+        return new TimeValue("$totalSeconds", 's');
     }
 
     /**
@@ -135,4 +138,31 @@ class TimeValue {
         return $this->getTime();
     }
 
+
+    /**
+     * Create a TimeValue from a \DateInterval object
+     *
+     * @param \DateInterval $interval
+     * @return TimeValue
+     */
+    public static function createFromDateInterval(\DateInterval $interval)
+    {
+        $utc = new \DateTimeZone('UTC');
+        $start = (new \DateTimeImmutable(null, $utc));
+        $end = $start->add($interval);
+        return new TimeValue($end->getTimestamp() - $start->getTimestamp(), 's');
+    }
+
+    /**
+     * Convert a TimeValue to a \DateInterval object.
+     *
+     * @return bool|\DateInterval
+     */
+    public function toDateInterval()
+    {
+        $utc = new \DateTimeZone('UTC');
+        $start = new \DateTime(null, $utc);
+        $end = new \DateTime('@' . ($start->getTimestamp() + $this->getSeconds()), $utc);
+        return ($start->diff($end));
+    }
 }

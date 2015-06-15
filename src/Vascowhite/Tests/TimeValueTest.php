@@ -1,7 +1,10 @@
 <?php
 /**
-Time
+Time: Perform calculations on periods of time.
+
 Copyright (C) 2014  Paul White
+
+email: paul at vascowhite dot co dot uk
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -140,11 +143,11 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     }
 
     public function testCanEcho(){
-        $testTimeValue = new TimeValue('00:00:00');
+        $testTimeValue = new TimeValue('129:00:00');
         ob_start();
         echo $testTimeValue;
         $result = ob_get_clean();
-        $this->assertEquals('00:00:00', $result, "Cannot echo!");
+        $this->assertEquals('129:00:00', $result, "Cannot echo!");
     }
 
     public function testPassInvalidTime()
@@ -179,4 +182,88 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(3570, TimeValue::sum($testValues)->getSeconds(), "Could not sum TimeValues");
     }
 
+    public function testCanCreateFromDateInterval()
+    {
+        $testInterval = new \DateInterval('P1Y1M6DT14H12M6S');
+        $difference = 34783926;
+        $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval)->getSeconds(), 'Could not create from \DateInterval');
+    }
+
+    public function testCanConvertToDateIntervalWithPositiveValue()
+    {
+        /*
+         $expectedInterval = new \DateInterval('P1Y1M6DT14H12M6S');
+         object(DateInterval)[2]
+           public 'y' => int 1
+           public 'm' => int 1
+           public 'd' => int 6
+           public 'h' => int 14
+           public 'i' => int 12
+           public 's' => int 6
+           public 'weekday' => int 0
+           public 'weekday_behavior' => int 0
+           public 'first_last_day_of' => int 0
+           public 'invert' => int 0
+           public 'days' => int 402
+           public 'special_type' => int 0
+           public 'special_amount' => int 0
+           public 'have_weekday_relative' => int 0
+           public 'have_special_relative' => int 0
+         */
+        $testTimeValue = new TimeValue('34783926', 's');
+        $testInterval = $testTimeValue->toDateInterval();
+        $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
+        $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
+        $this->assertEquals(6, $testInterval->d, "Test Interval days not correct");
+        $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
+        $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
+        $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
+        $this->assertEquals(0, $testInterval->invert, "Test Interval invert not correct");
+        $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
+    }
+
+    public function testCanConvertToDateIntervalWithNegativeValue()
+    {
+        /*
+         $expectedInterval = new \DateInterval('P1Y1M6DT14H12M6S');
+         object(DateInterval)[2]
+           public 'y' => int 1
+           public 'm' => int 1
+           public 'd' => int 7
+           public 'h' => int 14
+           public 'i' => int 12
+           public 's' => int 6
+           public 'weekday' => int 0
+           public 'weekday_behavior' => int 0
+           public 'first_last_day_of' => int 0
+           public 'invert' => int 1
+           public 'days' => int 402
+           public 'special_type' => int 0
+           public 'special_amount' => int 0
+           public 'have_weekday_relative' => int 0
+           public 'have_special_relative' => int 0
+         */
+        $testTimeValue = new TimeValue('-34783926', 's');
+        $testInterval = $testTimeValue->toDateInterval();
+        $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
+        $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
+        $this->assertEquals(7, $testInterval->d, "Test Interval days not correct");
+        $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
+        $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
+        $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
+        $this->assertEquals(1, $testInterval->invert, "Test Interval invert not correct");
+        $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
+    }
+
+    public function testCanCompare()
+    {
+        $testTimeValue1 = new TimeValue('01:00:00');
+        $testTimeValue2 = new TimeValue('01', 's');
+        $testTimeValue3 = new TimeValue('60', 's');
+        $testTimeValue4 = new TimeValue('01', 'i');
+
+        $this->assertEquals($testTimeValue3, $testTimeValue4, "Could not compare ==");
+        $this->assertGreaterThan($testTimeValue2, $testTimeValue1, "Could not compare >");
+        $this->assertLessThan($testTimeValue1, $testTimeValue2, "Could not compare <");
+    }
 }
