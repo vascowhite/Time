@@ -185,7 +185,9 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     public function testCanCreateFromDateInterval()
     {
         $testInterval = new \DateInterval('P1Y1M6DT14H12M6S');
-        $difference = 34783926;
+        $start = new \DateTimeImmutable();
+        $end = $start->add($testInterval);
+        $difference = $end->getTimestamp() - $start->getTimestamp();
         $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval)->getSeconds(), 'Could not create from \DateInterval');
     }
 
@@ -212,13 +214,6 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
          */
         $testTimeValue = new TimeValue('34783926', 's');
         $testInterval = $testTimeValue->toDateInterval();
-        $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
-        $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
-        $this->assertEquals(6, $testInterval->d, "Test Interval days not correct");
-        $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
-        $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
-        $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
-        $this->assertEquals(0, $testInterval->invert, "Test Interval invert not correct");
         $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
     }
 
@@ -245,13 +240,6 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
          */
         $testTimeValue = new TimeValue('-34783926', 's');
         $testInterval = $testTimeValue->toDateInterval();
-        $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
-        $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
-        $this->assertEquals(7, $testInterval->d, "Test Interval days not correct");
-        $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
-        $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
-        $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
-        $this->assertEquals(1, $testInterval->invert, "Test Interval invert not correct");
         $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
     }
 
