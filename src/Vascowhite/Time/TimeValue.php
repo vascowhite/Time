@@ -22,6 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Vascowhite\Time;
 use \Exception;
+use \DateTime;
+use \DateTimeImmutable;
+use \DateTimeZone;
+use \DateInterval;
 
 class TimeValue {
 
@@ -80,7 +84,7 @@ class TimeValue {
     public function add(TimeValue $time)
     {
         $totalSeconds = $this->seconds + $time->getSeconds();
-        return new TimeValue("$totalSeconds", 's');
+        return new TimeValue($totalSeconds, 's');
     }
 
     /**
@@ -92,7 +96,7 @@ class TimeValue {
     public function sub(TimeValue $time)
     {
         $totalSeconds = $this->seconds - $time->getSeconds();
-        return new TimeValue("$totalSeconds", 's');
+        return new TimeValue($totalSeconds, 's');
     }
 
     /**
@@ -138,17 +142,16 @@ class TimeValue {
         return $this->getTime();
     }
 
-
     /**
      * Create a TimeValue from a \DateInterval object
      *
      * @param \DateInterval $interval
      * @return TimeValue
      */
-    public static function createFromDateInterval(\DateInterval $interval)
+    public static function createFromDateInterval(DateInterval $interval)
     {
-        $utc = new \DateTimeZone('UTC');
-        $start = (new \DateTimeImmutable(null, $utc));
+        $utc = new DateTimeZone('UTC');
+        $start = (new DateTimeImmutable('now', $utc));
         $end = $start->add($interval);
         return new TimeValue($end->getTimestamp() - $start->getTimestamp(), 's');
     }
@@ -160,9 +163,10 @@ class TimeValue {
      */
     public function toDateInterval()
     {
-        $utc = new \DateTimeZone('UTC');
-        $start = new \DateTime(null, $utc);
-        $end = new \DateTime('@' . ($start->getTimestamp() + $this->getSeconds()), $utc);
+        $utc = new DateTimeZone('UTC');
+        $start = new DateTime('now', $utc);
+        $end = new DateTime('@' . ($start->getTimestamp() + $this->getSeconds()));
         return ($start->diff($end));
     }
+
 }
