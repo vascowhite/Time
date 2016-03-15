@@ -185,7 +185,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     public function testCanCreateFromDateInterval()
     {
         $testInterval = new \DateInterval('P1Y1M6DT14H12M6S');
-        $start = new \DateTimeImmutable();
+        $start = new \DateTimeImmutable('@0');
         $end = $start->add($testInterval);
         $difference = $end->getTimestamp() - $start->getTimestamp();
         $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval)->getSeconds(), 'Could not create from \DateInterval');
