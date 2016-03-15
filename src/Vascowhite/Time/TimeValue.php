@@ -23,8 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 namespace Vascowhite\Time;
 use \Exception;
 use \DateTime;
-use \DateTimeImmutable;
-use \DateTimeZone;
 use \DateInterval;
 
 class TimeValue {
@@ -150,10 +148,9 @@ class TimeValue {
      */
     public static function createFromDateInterval(DateInterval $interval)
     {
-        $utc = new DateTimeZone('UTC');
-        $start = (new DateTimeImmutable('now', $utc));
-        $end = $start->add($interval);
-        return new TimeValue($end->getTimestamp() - $start->getTimestamp(), 's');
+        $seconds = new DateTime('@0');
+        $seconds->add($interval);
+        return new TimeValue($seconds->getTimestamp(), 's');
     }
 
     /**
@@ -163,10 +160,9 @@ class TimeValue {
      */
     public function toDateInterval()
     {
-        $utc = new DateTimeZone('UTC');
-        $start = new DateTime('now', $utc);
+        $start = new DateTime('@0');
         $end = new DateTime('@' . ($start->getTimestamp() + $this->getSeconds()));
-        return ($start->diff($end));
+        return $start->diff($end);
     }
 
 }
