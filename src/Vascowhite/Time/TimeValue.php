@@ -161,7 +161,7 @@ class TimeValue {
     public function toDateInterval()
     {
         $start = new DateTime('@0');
-        $end = new DateTime('@' . ($start->getTimestamp() + $this->getSeconds()));
+        $end = new DateTime('@' . $this->getSeconds());
         return $start->diff($end);
     }
 
