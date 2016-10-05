@@ -17,7 +17,7 @@ Install using composer, add the following to composer.json:-
 
 ```json
 "require": {
-    "vascowhite/time": "1.0.0"
+    "vascowhite/time": "1.1.0"
 }
 ```
 
