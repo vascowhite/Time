@@ -257,6 +257,16 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
     }
 
+    public function testCanFormat()
+    {
+        $defaultFormat = '9662:12:06';
+        $expectedString = '1 Year 1 Month 6 Days 14 Hours 12 Minutes 6 Seconds';
+        $testFormat = '%y Year %m Month %d Days %h Hours %i Minutes %s Seconds';
+        $testTimeValue = new TimeValue('34783926', 's');
+        $this->assertEquals($defaultFormat, $testTimeValue->format(), 'Could not format string');
+        $this->assertEquals($expectedString, $testTimeValue->format($testFormat), 'Could not format string');
+    }
+
     public function testCanCompare()
     {
         $testTimeValue1 = new TimeValue('01:00:00');

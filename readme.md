@@ -264,5 +264,16 @@ object(DateInterval)[2]
 
 ---
 
+### TimeValue::format()
+
+__Signature__
+```php
+string format(string)
+```
+
+__Arguments__  
+A string representing the desired format. Uses same formatting as [`\DateInterval::format()`][3]
+
 [1]: http://www.hackcraft.net/web/datetime/#time
 [2]: http://php.net/datetime
+[3]: http://php.net/manual/en/dateinterval.format.php
