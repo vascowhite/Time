@@ -140,6 +140,14 @@ class TimeValue {
         return $this->getTime();
     }
 
+    public function format($format = null)
+    {
+        if(!$format){
+            return $this->getTime();
+        }
+        return $this->toDateInterval()->format($format);
+    }
+
     /**
      * Create a TimeValue from a \DateInterval object
      *
