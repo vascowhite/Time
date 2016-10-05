@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 namespace Vascowhite\Time;
 use \Exception;
+use \DateTime;
+use \DateInterval;
 
 class TimeValue {
 
@@ -80,7 +82,7 @@ class TimeValue {
     public function add(TimeValue $time)
     {
         $totalSeconds = $this->seconds + $time->getSeconds();
-        return new TimeValue("$totalSeconds", 's');
+        return new TimeValue($totalSeconds, 's');
     }
 
     /**
@@ -92,7 +94,7 @@ class TimeValue {
     public function sub(TimeValue $time)
     {
         $totalSeconds = $this->seconds - $time->getSeconds();
-        return new TimeValue("$totalSeconds", 's');
+        return new TimeValue($totalSeconds, 's');
     }
 
     /**
@@ -138,7 +140,6 @@ class TimeValue {
         return $this->getTime();
     }
 
-
     /**
      * Create a TimeValue from a \DateInterval object
      *
@@ -147,15 +148,14 @@ class TimeValue {
      *
      * @return TimeValue
      */
-    public static function createFromDateInterval(\DateInterval $interval, $invert = false)
+    public static function createFromDateInterval(DateInterval $interval, $invert = false)
     {
         if($invert){
             $interval->invert = 1;
         }
-        $utc = new \DateTimeZone('UTC');
-        $start = (new \DateTimeImmutable(null, $utc));
-        $end = $start->add($interval);
-        return new TimeValue($end->getTimestamp() - $start->getTimestamp(), 's');
+        $seconds = new DateTime('@0');
+        $seconds->add($interval);
+        return new TimeValue($seconds->getTimestamp(), 's');
     }
 
     /**
@@ -165,9 +165,9 @@ class TimeValue {
      */
     public function toDateInterval()
     {
-        $utc = new \DateTimeZone('UTC');
-        $start = new \DateTime(null, $utc);
-        $end = new \DateTime('@' . ($start->getTimestamp() + $this->getSeconds()), $utc);
-        return ($start->diff($end));
+        $start = new DateTime('@0');
+        $end = new DateTime('@' . $this->getSeconds());
+        return $start->diff($end);
     }
+
 }
