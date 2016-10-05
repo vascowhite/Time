@@ -143,10 +143,15 @@ class TimeValue {
      * Create a TimeValue from a \DateInterval object
      *
      * @param \DateInterval $interval
+     * @param  bool $invert Set the \DateInterval to be negative
+     *
      * @return TimeValue
      */
-    public static function createFromDateInterval(\DateInterval $interval)
+    public static function createFromDateInterval(\DateInterval $interval, $invert = false)
     {
+        if($invert){
+            $interval->invert = 1;
+        }
         $utc = new \DateTimeZone('UTC');
         $start = (new \DateTimeImmutable(null, $utc));
         $end = $start->add($interval);

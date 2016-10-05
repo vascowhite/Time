@@ -201,11 +201,12 @@ echo $sum->getSeconds(); //Output = 3600
 
 __Signature__
 ```php
-TimeValue createFromDateInterval(\DateInterval)
+TimeValue createFromDateInterval(\DateInterval, bool)
 ```
 
 __Arguments__
 A `\DateInterval` object.
+A Boolean value. If true the returned `\DateInterval` object will represent a negative value. Defaults to false.
 
 __Return__
 Returns a `TimeValue` object set to the number of seconds represented by the `\DateInterval` object.

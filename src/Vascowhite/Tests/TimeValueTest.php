@@ -189,6 +189,13 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval)->getSeconds(), 'Could not create from \DateInterval');
     }
 
+    public function testCanCreateNegativeTimevalueFromDateInterval()
+    {
+        $testInterval = new \DateInterval('P1Y1M6DT14H12M6S');
+        $difference = -34783926;
+        $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval, true)->getSeconds(), 'Could not create negative TimeValue from \DateInterval');
+    }
+
     public function testCanConvertToDateIntervalWithPositiveValue()
     {
         /*
@@ -229,7 +236,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
          object(DateInterval)[2]
            public 'y' => int 1
            public 'm' => int 1
-           public 'd' => int 7
+           public 'd' => int 6
            public 'h' => int 14
            public 'i' => int 12
            public 's' => int 6
@@ -247,7 +254,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $testInterval = $testTimeValue->toDateInterval();
         $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
         $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
-        $this->assertEquals(7, $testInterval->d, "Test Interval days not correct");
+        $this->assertEquals(6, $testInterval->d, "Test Interval days not correct");
         $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
         $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
         $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
