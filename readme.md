@@ -238,7 +238,7 @@ $timeValue = TimeValue::createFromDateInterval($interval); //34783926 seconds
 
 ---
 
-###  TimeValue::toDateInterval()
+### TimeValue::toDateInterval()
 
 __Signature__
 ```php
