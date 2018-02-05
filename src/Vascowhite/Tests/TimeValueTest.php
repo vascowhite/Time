@@ -24,7 +24,7 @@ namespace Vascowhite\Time\Tests;
 use Vascowhite\Time\TimeValue;
 use \Exception;
 
-class TimeValueTest extends \PHPUnit_Framework_TestCase
+class TimeValueTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var TimeValue
