@@ -46,6 +46,7 @@ TimeValue __construct(String $time, String $format = 'H:i:s')
 ```
 
 __Arguments__
+
 `$time` is a string representing a period of time. For example one hour, sixteen minutes and thirty seconds would be represented thus: '01:16:30'.
 
 `$format` Optional format string, defaults to 'H:i:s'. Available formats are 'H:i:s', 'H', 'i', or 's'.
@@ -79,6 +80,7 @@ Int getSeconds();
 ```
 
 __Arguments__
+
 None.
 
 __Return__
@@ -99,9 +101,11 @@ String getTime()
 ```
 
 __Arguments__
+
 None.
 
 __Return__
+
 Returns a string representing the time in the format 'H:i:s'. The 'H' portion will expand to the required number of digits to represent the hour.
 
 __Example__
@@ -120,9 +124,11 @@ TimeValue add(TimeValue)
 ```
 
 __Arguments__
+
 The `TimeValue` to be added.
 
 __Return__
+
 Returns a `TimeValue` object set to the appropriate number of seconds.
 
 __Example__
@@ -141,9 +147,11 @@ TimeValue sub(TimeValue)
 ```
 
 __Arguments__
+
 The `TimeValue` to be subtracted.
 
 __Return__
+
 Returns a `TimeValue` object set to the appropriate number of seconds.
 
 __Example__
@@ -162,9 +170,11 @@ TimeValue average(TimeValues[])
 ```
 
 __Arguments__
+
 An array of `TimeValue` objects.
 
 __Return__
+
 Returns a `TimeValue` object set to the average number of seconds of the `TimeValue` objects in the supplied array.
 
 __Example__
@@ -186,9 +196,11 @@ TimeValue sum(TimeValues[])
 ```
 
 __Arguments__
+
 An array of `TimeValue` objects.
 
 __Return__
+
 Returns a `TimeValue` object set to the sum the `TimeValue` objects in the supplied array.
 
 __Example__
@@ -210,10 +222,12 @@ TimeValue createFromDateInterval(\DateInterval, bool)
 ```
 
 __Arguments__
+
 A `\DateInterval` object.
 A Boolean value. If true the returned `\DateInterval` object will represent a negative value. Defaults to false.
 
 __Return__
+
 Returns a `TimeValue` object set to the number of seconds represented by the `\DateInterval` object.
 
 __Example__
@@ -232,9 +246,11 @@ TimeValue||Bool toDateInterval()
 ```
 
 __Arguments__
+
 None.
 
 __Return__
+
 Returns a `\DateInterval` object with all fields set as if created by `\DateTime::diff()`. Returns `false` if the conversion fails.
 
 __Example__
@@ -272,6 +288,7 @@ string format(string)
 ```
 
 __Arguments__  
+
 A string representing the desired format. Uses same formatting as [`\DateInterval::format()`][3]
 
 [1]: http://www.hackcraft.net/web/datetime/#time
