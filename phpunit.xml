@@ -32,5 +32,6 @@
              yui="true" highlight="true"
              lowUpperBound="50" highLowerBound="80"/>
         <log type="testdox-html" target="coverage/testdox.html" />
+        <log type="coverage-text" target="php://stdout" lowUpperBound="35" highLowerBound="70" />
     </logging>
 </phpunit>

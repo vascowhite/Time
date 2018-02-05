@@ -1,8 +1,8 @@
-#Time
+# Time
 
 [![Build Status](https://travis-ci.org/vascowhite/Time.svg?branch=master)](https://travis-ci.org/vascowhite/Time)
 
-##Introduction
+## Introduction
 This is a class for dealing with times.
 
 This [time data type][1] represents a period of time. It is expressed in the format 'H:i:s' (a left truncation of the representation of datetime). It is the elapsed time that would be measured on a stop watch that is unaware of date, time zones or DST.
@@ -11,19 +11,24 @@ PHP's native `\DatePeriod` is excellent for representing a time period of any le
 
 This class can add, subtract, average, sum and compare times. It will also convert a `\DateInterval` object to a `TimeValue` and a `TimeValue` object into a `\DateInterval` object.
 
-##Installation
+## Installation
 
 Install using composer, add the following to composer.json:-
 
 ```json
 "require": {
-    "vascowhite/time": "dev-master"
+    "vascowhite/time": "1.1.0"
 }
 ```
 
 Other methods of installation are possible, but not supported.
 
-###TimeValue
+## Requirements
+Requires PHP >= 5.5.0
+
+---
+
+### TimeValue
 This is an __immutable__ class that represents a time data type. It knows nothing about dates, if you need times associated with dates, then PHP's
 [`\DateTime`][2] Classes are what you are looking for.
 
@@ -33,7 +38,7 @@ There are various methods available for manipulating and comparing `TimeValue` o
 
 ---
 
-####TimeValue::__construct()
+#### TimeValue::__construct()
 
 __Signature:-__
 ```php
@@ -41,6 +46,7 @@ TimeValue __construct(String $time, String $format = 'H:i:s')
 ```
 
 __Arguments__
+
 `$time` is a string representing a period of time. For example one hour, sixteen minutes and thirty seconds would be represented thus: '01:16:30'.
 
 `$format` Optional format string, defaults to 'H:i:s'. Available formats are 'H:i:s', 'H', 'i', or 's'.
@@ -66,7 +72,7 @@ __Return__
 Returns a `TimeValue` object.
 
 ---
-####TimeValue::getSeconds()
+#### TimeValue::getSeconds()
 
 __Signature__
 ```php
@@ -74,6 +80,7 @@ Int getSeconds();
 ```
 
 __Arguments__
+
 None.
 
 __Return__
@@ -86,7 +93,7 @@ echo $time->getSeconds; // Output 610
 ```
 ---
 
-###TimeValue::getTime()
+### TimeValue::getTime()
 
 __Signature__
 ```php
@@ -94,9 +101,11 @@ String getTime()
 ```
 
 __Arguments__
+
 None.
 
 __Return__
+
 Returns a string representing the time in the format 'H:i:s'. The 'H' portion will expand to the required number of digits to represent the hour.
 
 __Example__
@@ -107,7 +116,7 @@ echo $time->getTime(); // Output "10:00:00"
 
 ---
 
-###TimeValue::add()
+### TimeValue::add()
 
 __Signature__
 ```php
@@ -115,9 +124,11 @@ TimeValue add(TimeValue)
 ```
 
 __Arguments__
+
 The `TimeValue` to be added.
 
 __Return__
+
 Returns a `TimeValue` object set to the appropriate number of seconds.
 
 __Example__
@@ -128,7 +139,7 @@ echo $time->add(new TimeValue('30', 'i'); // Output "01:30:00"
 
 ---
 
-###TimeValue::sub()
+### TimeValue::sub()
 
 __Signature__
 ```php
@@ -136,9 +147,11 @@ TimeValue sub(TimeValue)
 ```
 
 __Arguments__
+
 The `TimeValue` to be subtracted.
 
 __Return__
+
 Returns a `TimeValue` object set to the appropriate number of seconds.
 
 __Example__
@@ -149,7 +162,7 @@ echo $time->sub(new TimeValue('00:30'); // Output "00:30:00"
 
 ---
 
-###TimeValue::average()
+### TimeValue::average()
 
 __Signature__
 ```php
@@ -157,9 +170,11 @@ TimeValue average(TimeValues[])
 ```
 
 __Arguments__
+
 An array of `TimeValue` objects.
 
 __Return__
+
 Returns a `TimeValue` object set to the average number of seconds of the `TimeValue` objects in the supplied array.
 
 __Example__
@@ -173,7 +188,7 @@ echo $average->getSeconds(); //Output = 1200
 
 ---
 
-###TimeValue::sum()
+### TimeValue::sum()
 
 __Signature__
 ```php
@@ -181,9 +196,11 @@ TimeValue sum(TimeValues[])
 ```
 
 __Arguments__
+
 An array of `TimeValue` objects.
 
 __Return__
+
 Returns a `TimeValue` object set to the sum the `TimeValue` objects in the supplied array.
 
 __Example__
@@ -197,17 +214,20 @@ echo $sum->getSeconds(); //Output = 3600
 
 ---
 
-###TimeValue::createFromDateInterval()
+### TimeValue::createFromDateInterval()
 
 __Signature__
 ```php
-TimeValue createFromDateInterval(\DateInterval)
+TimeValue createFromDateInterval(\DateInterval, bool)
 ```
 
 __Arguments__
+
 A `\DateInterval` object.
+A Boolean value. If true the returned `\DateInterval` object will represent a negative value. Defaults to false.
 
 __Return__
+
 Returns a `TimeValue` object set to the number of seconds represented by the `\DateInterval` object.
 
 __Example__
@@ -218,7 +238,7 @@ $timeValue = TimeValue::createFromDateInterval($interval); //34783926 seconds
 
 ---
 
-###TimeValue::toDateInterval()
+###  TimeValue::toDateInterval()
 
 __Signature__
 ```php
@@ -226,9 +246,11 @@ TimeValue||Bool toDateInterval()
 ```
 
 __Arguments__
+
 None.
 
 __Return__
+
 Returns a `\DateInterval` object with all fields set as if created by `\DateTime::diff()`. Returns `false` if the conversion fails.
 
 __Example__
@@ -258,5 +280,17 @@ object(DateInterval)[2]
 
 ---
 
+### TimeValue::format()
+
+__Signature__
+```php
+string format(string)
+```
+
+__Arguments__  
+
+A string representing the desired format. Uses same formatting as [`\DateInterval::format()`][3]
+
 [1]: http://www.hackcraft.net/web/datetime/#time
 [2]: http://php.net/datetime
+[3]: http://php.net/manual/en/dateinterval.format.php

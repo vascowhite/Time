@@ -24,7 +24,7 @@ namespace Vascowhite\Time\Tests;
 use Vascowhite\Time\TimeValue;
 use \Exception;
 
-class TimeValueTest extends \PHPUnit_Framework_TestCase
+class TimeValueTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @var TimeValue
@@ -185,8 +185,17 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
     public function testCanCreateFromDateInterval()
     {
         $testInterval = new \DateInterval('P1Y1M6DT14H12M6S');
-        $difference = 34783926;
+        $start = new \DateTimeImmutable('@0');
+        $end = $start->add($testInterval);
+        $difference = $end->getTimestamp() - $start->getTimestamp();
         $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval)->getSeconds(), 'Could not create from \DateInterval');
+    }
+
+    public function testCanCreateNegativeTimevalueFromDateInterval()
+    {
+        $testInterval = new \DateInterval('P1Y1M6DT14H12M6S');
+        $difference = -34783926;
+        $this->assertEquals($difference, TimeValue::createFromDateInterval($testInterval, true)->getSeconds(), 'Could not create negative TimeValue from \DateInterval');
     }
 
     public function testCanConvertToDateIntervalWithPositiveValue()
@@ -212,13 +221,6 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
          */
         $testTimeValue = new TimeValue('34783926', 's');
         $testInterval = $testTimeValue->toDateInterval();
-        $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
-        $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
-        $this->assertEquals(6, $testInterval->d, "Test Interval days not correct");
-        $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
-        $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
-        $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
-        $this->assertEquals(0, $testInterval->invert, "Test Interval invert not correct");
         $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
     }
 
@@ -229,7 +231,7 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
          object(DateInterval)[2]
            public 'y' => int 1
            public 'm' => int 1
-           public 'd' => int 7
+           public 'd' => int 6
            public 'h' => int 14
            public 'i' => int 12
            public 's' => int 6
@@ -247,12 +249,22 @@ class TimeValueTest extends \PHPUnit_Framework_TestCase
         $testInterval = $testTimeValue->toDateInterval();
         $this->assertEquals(1, $testInterval->y, "Test Interval years not correct");
         $this->assertEquals(1, $testInterval->m, "Test Interval months not correct");
-        $this->assertEquals(7, $testInterval->d, "Test Interval days not correct");
+        $this->assertEquals(6, $testInterval->d, "Test Interval days not correct");
         $this->assertEquals(14, $testInterval->h, "Test Interval hours not correct");
         $this->assertEquals(12, $testInterval->i, "Test Interval minutes not correct");
         $this->assertEquals(6, $testInterval->s, "Test Interval seconds not correct");
         $this->assertEquals(1, $testInterval->invert, "Test Interval invert not correct");
         $this->assertEquals(402, $testInterval->days, "Test Interval total full days not correct");
+    }
+
+    public function testCanFormat()
+    {
+        $defaultFormat = '9662:12:06';
+        $expectedString = '1 Year 1 Month 6 Days 14 Hours 12 Minutes 6 Seconds';
+        $testFormat = '%y Year %m Month %d Days %h Hours %i Minutes %s Seconds';
+        $testTimeValue = new TimeValue('34783926', 's');
+        $this->assertEquals($defaultFormat, $testTimeValue->format(), 'Could not format string');
+        $this->assertEquals($expectedString, $testTimeValue->format($testFormat), 'Could not format string');
     }
 
     public function testCanCompare()
