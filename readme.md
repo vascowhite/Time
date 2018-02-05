@@ -1,8 +1,8 @@
-#Time
+# Time
 
 [![Build Status](https://travis-ci.org/vascowhite/Time.svg?branch=master)](https://travis-ci.org/vascowhite/Time)
 
-##Introduction
+## Introduction
 This is a class for dealing with times.
 
 This [time data type][1] represents a period of time. It is expressed in the format 'H:i:s' (a left truncation of the representation of datetime). It is the elapsed time that would be measured on a stop watch that is unaware of date, time zones or DST.
@@ -11,7 +11,7 @@ PHP's native `\DatePeriod` is excellent for representing a time period of any le
 
 This class can add, subtract, average, sum and compare times. It will also convert a `\DateInterval` object to a `TimeValue` and a `TimeValue` object into a `\DateInterval` object.
 
-##Installation
+## Installation
 
 Install using composer, add the following to composer.json:-
 
@@ -23,12 +23,12 @@ Install using composer, add the following to composer.json:-
 
 Other methods of installation are possible, but not supported.
 
-##Requirements
+## Requirements
 Requires PHP >= 5.5.0
 
 ---
 
-###TimeValue
+### TimeValue
 This is an __immutable__ class that represents a time data type. It knows nothing about dates, if you need times associated with dates, then PHP's
 [`\DateTime`][2] Classes are what you are looking for.
 
@@ -38,7 +38,7 @@ There are various methods available for manipulating and comparing `TimeValue` o
 
 ---
 
-####TimeValue::__construct()
+#### TimeValue::__construct()
 
 __Signature:-__
 ```php
@@ -71,7 +71,7 @@ __Return__
 Returns a `TimeValue` object.
 
 ---
-####TimeValue::getSeconds()
+#### TimeValue::getSeconds()
 
 __Signature__
 ```php
@@ -91,7 +91,7 @@ echo $time->getSeconds; // Output 610
 ```
 ---
 
-###TimeValue::getTime()
+### TimeValue::getTime()
 
 __Signature__
 ```php
@@ -112,7 +112,7 @@ echo $time->getTime(); // Output "10:00:00"
 
 ---
 
-###TimeValue::add()
+### TimeValue::add()
 
 __Signature__
 ```php
@@ -133,7 +133,7 @@ echo $time->add(new TimeValue('30', 'i'); // Output "01:30:00"
 
 ---
 
-###TimeValue::sub()
+### TimeValue::sub()
 
 __Signature__
 ```php
@@ -154,7 +154,7 @@ echo $time->sub(new TimeValue('00:30'); // Output "00:30:00"
 
 ---
 
-###TimeValue::average()
+### TimeValue::average()
 
 __Signature__
 ```php
@@ -178,7 +178,7 @@ echo $average->getSeconds(); //Output = 1200
 
 ---
 
-###TimeValue::sum()
+### TimeValue::sum()
 
 __Signature__
 ```php
@@ -202,7 +202,7 @@ echo $sum->getSeconds(); //Output = 3600
 
 ---
 
-###TimeValue::createFromDateInterval()
+### TimeValue::createFromDateInterval()
 
 __Signature__
 ```php
@@ -224,7 +224,7 @@ $timeValue = TimeValue::createFromDateInterval($interval); //34783926 seconds
 
 ---
 
-###TimeValue::toDateInterval()
+###  TimeValue::toDateInterval()
 
 __Signature__
 ```php
