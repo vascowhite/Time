@@ -1,3 +1,5 @@
+Moved to https://gitlab.com/vascowhite/Time
+
 # Time
 
 [![Build Status](https://travis-ci.org/vascowhite/Time.svg?branch=master)](https://travis-ci.org/vascowhite/Time)
